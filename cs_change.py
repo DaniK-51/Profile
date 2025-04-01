@@ -7,10 +7,9 @@ def rad_to_dec(xr: float, yr: float):
 
 def dec_to_rad(xd: float, yd: float):
     if xd >= 0 and yd >= 0:
-        return [(xd * 2 + yd * 2) ** 0.5, math.atan(yd / xd)]
+        return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd)]
     if xd < 0 and yd > 0:
-        return [(xd * 2 + yd * 2) ** 0.5, math.atan(-xd / yd) + (math.pi / 2)]
+        return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi / 2)]
     if xd < 0 and yd < 0:
-        return [(xd * 2 + yd * 2) ** 0.5, math.atan(yd / xd) + math.pi]
-    if xd >= 0 and yd < 0:
-        return [(xd * 2 + yd * 2) ** 0.5, math.atan(-xd / yd) + (math.pi * 3 / 2)]
+        return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd) + math.pi]
+    return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi * 3 / 2)]
