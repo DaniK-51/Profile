@@ -1,7 +1,5 @@
 from cs_change import *
 from random import random
-import turtle
-
 
 def gen_profile(d: float = 1000, min_div: float = -20, max_div: float = 20, step: int = 1, center_div: float = 50):
     ref_points = [(d/2 - (random() * (max_div - min_div) + min_div)) for _ in range(12)]
