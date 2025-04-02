@@ -1,6 +1,5 @@
 from cs_change import *
 from random import random
-import turtle
 
 
 def gen_profile(d: float = 1000, min_div: float = -20, max_div: float = 20, step: int = 1, center_div: float = 50):
@@ -36,10 +35,12 @@ def gen_profile(d: float = 1000, min_div: float = -20, max_div: float = 20, step
     return res_profile
 
 
-profile = gen_profile()
-dec_profile = list(map(lambda x: rad_to_dec(*x), profile))
-print(*profile, sep='\n')
-t = turtle.Turtle()
-for x, y in dec_profile:
-    t.goto(x, y)
-turtle.mainloop()
+if __name__ == "__main__":
+    import turtle
+    profile = gen_profile()
+    dec_profile = list(map(lambda x: rad_to_dec(*x), profile))
+    print(*profile, sep='\n')
+    t = turtle.Turtle()
+    for x, y in dec_profile:
+        t.goto(x, y)
+    turtle.mainloop()
