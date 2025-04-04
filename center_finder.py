@@ -6,9 +6,10 @@ import math
 def center_finder(profile:list[list[float]], in_dec:bool=False):
     if in_dec:
         dec_profile = copy.deepcopy(profile)
-        profile = list(map(lambda x: dec_to_rad(*x), profile))
+        profile = list(dec_to_rad(dec_cords=profile))
     else:
-        dec_profile = list(map(lambda x: rad_to_dec(*x), profile))
+        dec_profile = list(rad_to_dec(rad_cords=profile))
+        profile = copy.deepcopy(profile)
     n = len(profile)
     dec_profile.append(dec_profile[0])
     profile.append(profile[0])

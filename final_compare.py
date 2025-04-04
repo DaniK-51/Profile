@@ -1,5 +1,4 @@
 import csv
-import math
 import turtle
 from cs_change import *
 import matplotlib.pyplot as plt
@@ -32,9 +31,9 @@ plt.show()
 
 angle = a.index(min(a)) / n * 2 * math.pi
 
-profile1 = list(map(lambda x: rad_to_dec(*x), profile1))
+profile1 = list(rad_to_dec(rad_cords=profile1))
 profile2 = list(map(lambda x: [x[0], x[1] + angle], profile2))
-profile2 = list(map(lambda x: rad_to_dec(*x), profile2))
+profile2 = list(rad_to_dec(rad_cords=profile2))
 
 t = turtle.Turtle()
 s = turtle.Screen().getcanvas()
