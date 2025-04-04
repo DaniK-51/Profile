@@ -37,12 +37,13 @@ def dec_to_rad(dec_cord:list[float]=None, dec_cords:list[list[float]]=None):
         for cord in dec_cords:
             xd, yd = cord
             if xd >= 0 and yd >= 0:
-                return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd)]
-            if xd < 0 and yd > 0:
-                return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi / 2)]
-            if xd < 0 and yd < 0:
-                return [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd) + math.pi]
-            yield [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi * 3 / 2)]
+                yield [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd)]
+            elif xd < 0 and yd > 0:
+                yield [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi / 2)]
+            elif xd < 0 and yd < 0:
+                yield [(xd ** 2 + yd ** 2) ** 0.5, math.atan(yd / xd) + math.pi]
+            else:
+                yield [(xd ** 2 + yd ** 2) ** 0.5, math.atan(-xd / yd) + (math.pi * 3 / 2)]
 
 
 def rad_interpolation(rad_cords:list[list[float]]):
