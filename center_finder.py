@@ -3,7 +3,7 @@ import copy
 import math
 
 
-def center_finder(profile:list[list[float]], in_dec:bool=False):
+def center_finder(profile: list[list[float]], in_dec: bool = False):
     if in_dec:
         dec_profile = copy.deepcopy(profile)
         profile = list(dec_to_rad(dec_cords=profile))
@@ -24,5 +24,18 @@ def center_finder(profile:list[list[float]], in_dec:bool=False):
 
     cp[0] /= summ
     cp[1] /= summ
+
+    return cp
+
+
+def center_finder_alt(profile: list[list[float]], in_dec: bool = False):
+    if in_dec:
+        profile = copy.deepcopy(profile)
+    else:
+        profile = list(rad_to_dec(rad_cords=profile))
+
+    n = len(profile)
+
+    cp = [sum(map(lambda xy: xy[0], profile)) / n * 2, sum(map(lambda xy: xy[1], profile)) / n * 2]
 
     return cp
