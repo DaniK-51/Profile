@@ -44,5 +44,3 @@ def correct_alt(direct: str, name: str):
 
 print(correct("profiles", "file_1.csv"))
 print(correct("profiles", "file_2.csv"))
-print(correct_alt("profiles", "file_1_alt.csv"))
-print(correct_alt("profiles", "file_2_alt.csv"))

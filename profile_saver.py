@@ -16,5 +16,5 @@ def save(direct: str, name: str | list[str]):
             c.writerows(gen)
 
 
-save("profiles", ["file_1.csv", "file_1_alt.csv"])
-save("profiles", ["file_2.csv", "file_2_alt.csv"])
+save("profiles", "file_1.csv")
+save("profiles", "file_2.csv")
