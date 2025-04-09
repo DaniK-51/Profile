@@ -1,13 +1,15 @@
 import csv
 import turtle
 from cs_change import *
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+from stat_tube_pos import stat_tube_pos
+from angles_of_arms import find_angles
 
 directory = "profiles"
 first_file_name = "file_1.csv"
 second_file_name = "file_2.csv"
-first_alt_file_name = "file_1_alt.csv"
-second_alt_file_name = "file_2_alt.csv"
+dx1, r = 300, 150
+dx2, dy, r1, r2 = 300, 0, 150, 100
 
 with open(f"{directory}\\{first_file_name}") as f:
     profile1 = list(map(lambda x: [float(x[0]), float(x[1])], csv.reader(f)))
@@ -28,41 +30,36 @@ for ang in range(n):
 
     a.append(o)
 
-with open(f"{directory}\\{first_alt_file_name}") as f:
-    profile1 = list(map(lambda x: [float(x[0]), float(x[1])], csv.reader(f)))
-with open(f"{directory}\\{second_alt_file_name}") as f:
-    profile2 = list(map(lambda x: [float(x[0]), float(x[1])], csv.reader(f)))
-n = len(profile1)
-
-a1 = []
-for ang in range(n):
-    u = 0
-    for i in range(n):
-        u += abs(profile1[i][0] - profile2[(i + ang) % n][0]) / n
-    o = 0
-    for i in range(n):
-        o += (abs(profile1[i][0] - profile2[(i + ang) % n][0]) - u) ** 2
-
-    o = (o / n) ** 0.5
-
-    a1.append(o)
-
 angle = a.index(min(a))
-angle1 = a1.index(min(a1))
 
-print(f"angle\t = {angle} at {min(a):.3}\nangle1\t = {angle1} at {min(a1):.3}")
+print(f"angle\t = {angle} at {min(a):.3}")
 
-plt.plot(range(n), a)
-plt.plot(range(n), a1, '--')
-plt.show()
+# plt.plot(range(n), a)
+# plt.plot(range(n), a1, '--')
+# plt.show()
 
-profile1 = list(rad_to_dec(rad_cords=profile1))
+dec_profile1 = list(rad_to_dec(rad_cords=profile1))
 profile2 = list(map(lambda x: [x[0], x[1] + angle], profile2))
-profile2 = list(rad_to_dec(rad_cords=profile2))
+dec_profile2 = list(rad_to_dec(rad_cords=profile2))
 
-t = turtle.Turtle()
 s = turtle.Screen().getcanvas()
-for ang in range(n-1):
-    s.create_line(profile1[ang][0] / 2, profile1[ang][1] / 2, profile1[ang + 1][0] / 2, profile1[ang + 1][1] / 2)
-    s.create_line(profile2[ang][0] / 2, profile2[ang][1] / 2, profile2[ang + 1][0] / 2, profile2[ang + 1][1] / 2)
+k = 0.5
+
+for ang in range(n):
+    s.create_line(dec_profile1[ang][0] * k, -dec_profile1[ang][1] * k, dec_profile1[ang - 1][0] * k, -dec_profile1[ang - 1][1] * k)
+    s.create_line(dec_profile2[ang][0] * k, -dec_profile2[ang][1] * k, dec_profile2[ang - 1][0] * k, -dec_profile2[ang - 1][1] * k)
+
+center = stat_tube_pos(profile1, dx1, r)
+
+s.create_oval(-(center[0] + dx1 + r) * k, (center[1] - r) * k, -(center[0] + dx1 - r) * k, (center[1] + r) * k)
+s.create_oval(-(center[0] - dx1 + r) * k, (center[1] - r) * k, -(center[0] - dx1 - r) * k, (center[1] + r) * k)
+
+s.create_oval(-(center[0] + dx2 + r1) * k, (center[1] - r1) * k, -(center[0] + dx2 - r1) * k, (center[1] + r1) * k)
+s.create_oval(-(center[0] - dx2 + r1) * k, (center[1] - r1) * k, -(center[0] - dx2 - r1) * k, (center[1] + r1) * k)
+
+angles = find_angles(profile2, center, dx2, dy, r1, r2)
+
+s.create_oval(k * (math.cos(math.pi - angles[0]) * r1 - r2 - center[0] - dx2), -k * (math.sin(math.pi - angles[0]) * r1 - r2 - center[1]), k * (math.cos(math.pi - angles[0]) * r1 + r2 - center[0] - dx2), -k * (math.sin(math.pi - angles[0]) * r1 + r2 - center[1]))
+s.create_oval(k * (math.cos(angles[1]) * r1 - r2 - center[0] + dx2), -k * (math.sin(angles[1]) * r1 - r2 - center[1]), k * (math.cos(angles[1]) * r1 + r2 - center[0] + dx2), -k * (math.sin(angles[1]) * r1 + r2 - center[1]))
+
 turtle.mainloop()
