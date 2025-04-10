@@ -30,9 +30,9 @@ for ang in range(n):
 
     a.append(o)
 
-angle = a.index(min(a))
+angle = a.index(min(a)) * math.pi / 180
 
-print(f"angle\t = {angle} at {min(a):.3}")
+print(f"angle\t = {angle.__format__('.3')} at {min(a):.3}")
 
 # plt.plot(range(n), a)
 # plt.plot(range(n), a1, '--')
@@ -58,6 +58,7 @@ s.create_oval(-(center[0] + dx2 + r1) * k, (center[1] - r1) * k, -(center[0] + d
 s.create_oval(-(center[0] - dx2 + r1) * k, (center[1] - r1) * k, -(center[0] - dx2 - r1) * k, (center[1] + r1) * k)
 
 angles = find_angles(profile2, center, dx2, dy, r1, r2)
+print(f"left angle = {angles[0].__format__('.3')}, right angle = {angles[1].__format__('.3')}")
 
 s.create_oval(k * (math.cos(math.pi - angles[0]) * r1 - r2 - center[0] - dx2), -k * (math.sin(math.pi - angles[0]) * r1 - r2 - center[1]), k * (math.cos(math.pi - angles[0]) * r1 + r2 - center[0] - dx2), -k * (math.sin(math.pi - angles[0]) * r1 + r2 - center[1]))
 s.create_oval(k * (math.cos(angles[1]) * r1 - r2 - center[0] + dx2), -k * (math.sin(angles[1]) * r1 - r2 - center[1]), k * (math.cos(angles[1]) * r1 + r2 - center[0] + dx2), -k * (math.sin(angles[1]) * r1 + r2 - center[1]))
